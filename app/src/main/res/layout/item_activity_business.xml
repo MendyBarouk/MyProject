@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginBottom="0.4dp"
+    android:background="@color/colorIcons"
+    android:elevation="1dp"
+    android:id="@+id/item_activity_business_swipe_layout"
+    app:dragEdge="right"
+    app:mode="same_level">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/item_activity_business_delete_textView"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_red_dark"
+            android:drawablePadding="-10dp"
+            android:drawableTop="@drawable/ic_delete_dp"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="Delete"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/item_activity_business_edit_textView"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:drawablePadding="-10dp"
+            android:drawableTop="@drawable/ic_mode_24dp"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="Edit"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="115dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="From :"
+                        android:textColor="@color/colorPrimary_text" />
+
+                    <TextView
+                        android:id="@+id/item_activity_business_from_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18/01/17"
+                        android:textColor="@color/colorSecondary_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="to       :"
+                        android:textColor="@color/colorPrimary_text"
+                        tools:ignore="RtlHardcoded" />
+
+                    <TextView
+                        android:id="@+id/item_activity_business_to_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18/01/17"
+                        android:textColor="@color/colorSecondary_text" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/item_activity_business_price_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:text="price $$$"
+                android:textColor="@color/colorSecondary_text" />
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:layout_toLeftOf="@+id/item_activity_business_price_textView"
+                android:layout_toRightOf="@+id/linearLayout1"
+                tools:ignore="RtlHardcoded">
+
+
+                <TextView
+                    android:id="@+id/item_activity_business_verbalDescription_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="verbal description"
+                    android:textColor="@color/colorSecondary_text" />
+            </ScrollView>
+        </RelativeLayout>
+    </FrameLayout>
+
+</com.chauthai.swipereveallayout.SwipeRevealLayout>
