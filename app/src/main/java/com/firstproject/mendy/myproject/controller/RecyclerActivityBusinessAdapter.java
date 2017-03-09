@@ -14,15 +14,15 @@ import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.firstproject.mendy.myproject.R;
 import com.firstproject.mendy.myproject.model.entities.BusinessActivity;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Mendy on 18/01/2017.
  */
 
-public class RecyclerActivityBusinessAdapter extends RecyclerView.Adapter<RecyclerActivityBusinessAdapter.ViewHolderActivityBusiness> {
+class RecyclerActivityBusinessAdapter extends RecyclerView.Adapter<RecyclerActivityBusinessAdapter.ViewHolderActivityBusiness> {
 
 
     public static final String POSITION = "Position";
@@ -30,7 +30,7 @@ public class RecyclerActivityBusinessAdapter extends RecyclerView.Adapter<Recycl
     private final ViewBinderHelper binderHelper = new ViewBinderHelper();
     private final ViewHolderActivityBusiness.OnEditDeleteInteractionListener listener;
 
-    public RecyclerActivityBusinessAdapter(ViewHolderActivityBusiness.OnEditDeleteInteractionListener listener, List<BusinessActivity> businessActivities){
+    RecyclerActivityBusinessAdapter(ViewHolderActivityBusiness.OnEditDeleteInteractionListener listener, List<BusinessActivity> businessActivities){
         this.businessActivities = businessActivities;
         binderHelper.setOpenOnlyOne(true);
         this.listener = listener;
@@ -59,14 +59,14 @@ public class RecyclerActivityBusinessAdapter extends RecyclerView.Adapter<Recycl
 
 
 
-    public static class ViewHolderActivityBusiness extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ViewHolderActivityBusiness extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView fromTextView, toTextView, verbalDescTextView, priceTextView;
         private View deleteTextView, editTextView;
         private SwipeRevealLayout swipeRevealLayout;
         private OnEditDeleteInteractionListener listener;
 
-        public ViewHolderActivityBusiness(OnEditDeleteInteractionListener listener, View itemView) {
+        ViewHolderActivityBusiness(OnEditDeleteInteractionListener listener, View itemView) {
             super(itemView);
 
             fromTextView = (TextView) itemView.findViewById(R.id.item_activity_business_from_textView);
@@ -89,7 +89,7 @@ public class RecyclerActivityBusinessAdapter extends RecyclerView.Adapter<Recycl
             });
         }
 
-        public void bind(BusinessActivity businessActivity){
+        void bind(BusinessActivity businessActivity){
             deleteTextView.setOnClickListener(this);
             editTextView.setOnClickListener(this);
 
@@ -100,15 +100,14 @@ public class RecyclerActivityBusinessAdapter extends RecyclerView.Adapter<Recycl
             priceTextView.setText("$ " + businessActivity.getPrice());
         }
 
-        public static String getDate(long milliSeconds)
+        static String getDate(long milliSeconds)
         {
             // Create a DateFormatter object for displaying date in specified format.
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
 
             // Create a calendar object that will convert the date and time value in milliseconds to date.
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(milliSeconds);
-            Log.d("Mendy", formatter.format(calendar.getTime()));
             return formatter.format(calendar.getTime());
         }
 
@@ -124,7 +123,7 @@ public class RecyclerActivityBusinessAdapter extends RecyclerView.Adapter<Recycl
             }
         }
 
-        public interface OnEditDeleteInteractionListener{
+        interface OnEditDeleteInteractionListener{
             void onDelete(int position);
             void onEdit(int position);
         }

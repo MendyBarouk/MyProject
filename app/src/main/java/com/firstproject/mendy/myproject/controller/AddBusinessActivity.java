@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firstproject.mendy.myproject.R;
 import com.firstproject.mendy.myproject.controller.fragmentregister.SecondFragment;
@@ -190,10 +191,12 @@ public class AddBusinessActivity extends AppCompatActivity implements SecondFrag
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
+                progressDialog.dismiss();
                 if (aBoolean) {
-                    progressDialog.dismiss();
                     setResult(RESULT_OK, new Intent());
                     finish();
+                } else{
+                    Toast.makeText(AddBusinessActivity.this, "problem white server", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute();

@@ -6,10 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,34 +14,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firstproject.mendy.myproject.R;
-import com.firstproject.mendy.myproject.model.backend.MySqlContract;
+import com.firstproject.mendy.myproject.model.backend.PHPContract;
 import com.firstproject.mendy.myproject.model.entities.Business;
 import com.firstproject.mendy.myproject.model.entities.User;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import static android.R.attr.country;
-import static android.R.attr.negativeButtonText;
 
 /**
  * Created by Mendy on 15/01/2017.
  */
 
-public class RecyclerBusinessAdapter extends RecyclerView.Adapter<RecyclerBusinessAdapter.ViewHolderBusiness> {
+class RecyclerBusinessAdapter extends RecyclerView.Adapter<RecyclerBusinessAdapter.ViewHolderBusiness> {
 
-    public static final int BACK_FROM_DETAIL_ACTIVITY = 3;
-    public static final String POSITION = "position";
+    static final int BACK_FROM_DETAIL_ACTIVITY = 3;
+    static final String POSITION = "position";
 
     private List<Business> businessList;
     private Activity activity;
 
-    public RecyclerBusinessAdapter(Activity activity){
+    RecyclerBusinessAdapter(Activity activity){
         try {
             this.businessList = User.getInstance().getListBusiness();
         } catch (Exception e) {
@@ -82,14 +74,14 @@ public class RecyclerBusinessAdapter extends RecyclerView.Adapter<RecyclerBusine
             public void onClick(View v) {
                 Intent intent = new Intent(activity, DetailBusinessActivity.class);
                 intent.putExtra(POSITION, holder.getAdapterPosition());
-                intent.putExtra(MySqlContract.BusinessContract.BUSINESS_TABLE, business);
+                intent.putExtra(PHPContract.BusinessContract.BUSINESS_TABLE, business);
                 activity.startActivityForResult(intent, BACK_FROM_DETAIL_ACTIVITY);
             }
         });
         holder.position = holder.getAdapterPosition();
     }
 
-    public static Bitmap byteArrayToBitmap(byte[] bytes) {
+    private static Bitmap byteArrayToBitmap(byte[] bytes) {
         InputStream is = new ByteArrayInputStream(bytes);
         return BitmapFactory.decodeStream(is);
     }
@@ -102,7 +94,7 @@ public class RecyclerBusinessAdapter extends RecyclerView.Adapter<RecyclerBusine
 
 
 
-    public class ViewHolderBusiness extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolderBusiness extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView nameOfCompany;
         private TextView addressOfCompany;
@@ -126,7 +118,7 @@ public class RecyclerBusinessAdapter extends RecyclerView.Adapter<RecyclerBusine
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(RecyclerBusinessAdapter.this.activity, ListBusinessActivityActivity.class);
-            intent.putExtra(MySqlContract.BusinessContract.ID, businessList.get(position).getId());
+            intent.putExtra(PHPContract.BusinessContract.ID, businessList.get(position).getId());
             RecyclerBusinessAdapter.this.activity.startActivity(intent);
         }
     }

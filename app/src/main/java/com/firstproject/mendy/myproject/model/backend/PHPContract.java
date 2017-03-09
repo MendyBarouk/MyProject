@@ -7,7 +7,7 @@ import java.sql.SQLException;
 /**
  * Created by Mendy on 25/01/2017.
  */
-public class MySqlContract {
+public class PHPContract {
 
     public static class UserContract {
         public static final String USER_TABLE = "users";

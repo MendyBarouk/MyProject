@@ -1,6 +1,5 @@
 package com.firstproject.mendy.myproject.controller;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,13 +13,12 @@ import android.widget.TextView;
 import com.firstproject.mendy.myproject.R;
 import com.firstproject.mendy.myproject.model.backend.DBManager;
 import com.firstproject.mendy.myproject.model.backend.DBManagerFactory;
-import com.firstproject.mendy.myproject.model.backend.MySqlContract;
+import com.firstproject.mendy.myproject.model.backend.PHPContract;
 import com.firstproject.mendy.myproject.model.entities.BusinessActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class AddActivityBusinessActivity extends AppCompatActivity {
 
@@ -29,7 +27,7 @@ public class AddActivityBusinessActivity extends AppCompatActivity {
     private TextView fromTextView, toTextView;
 
     private long idBusiness;
-    private boolean ifedit;
+    private boolean ifEdit;
     private BusinessActivity businessActivity;
 
     @Override
@@ -39,13 +37,13 @@ public class AddActivityBusinessActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        idBusiness = getIntent().getLongExtra(MySqlContract.BusinessContract.ID, -1);
+        idBusiness = getIntent().getLongExtra(PHPContract.BusinessContract.ID, -1);
 
 
         findViewById();
-        ifedit = getIntent().getBooleanExtra(TO_EDIT, false);
-        if (ifedit){
-            businessActivity = (BusinessActivity) getIntent().getSerializableExtra(MySqlContract.BusinessActivityContract.BUSINESSACTIVITY_TABLE);
+        ifEdit = getIntent().getBooleanExtra(TO_EDIT, false);
+        if (ifEdit){
+            businessActivity = (BusinessActivity) getIntent().getSerializableExtra(PHPContract.BusinessActivityContract.BUSINESSACTIVITY_TABLE);
             editBusiness(businessActivity);
         }
     }
@@ -112,7 +110,7 @@ public class AddActivityBusinessActivity extends AppCompatActivity {
 
 
 
-        if (ifedit){
+        if (ifEdit){
             businessActivity.setFromDate(date1);
             businessActivity.setToDate(date2);
             businessActivity.setPrice(Float.parseFloat(priceEditText.getText().toString()));
@@ -158,8 +156,8 @@ public class AddActivityBusinessActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Boolean aBoolean) {
+                progressDialog.dismiss();
                 if (aBoolean) {
-                    progressDialog.dismiss();
                     Intent intent = new Intent();
                     intent.putExtra(TO_EDIT, true);
                     setResult(RESULT_OK, intent);

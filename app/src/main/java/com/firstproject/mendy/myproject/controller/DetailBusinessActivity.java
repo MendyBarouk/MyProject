@@ -9,7 +9,6 @@ import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,10 +23,9 @@ import com.firstproject.mendy.myproject.controller.fragmentregister.GooglePlaceA
 import com.firstproject.mendy.myproject.controller.fragmentregister.Validation;
 import com.firstproject.mendy.myproject.model.backend.DBManager;
 import com.firstproject.mendy.myproject.model.backend.DBManagerFactory;
-import com.firstproject.mendy.myproject.model.backend.MySqlContract;
+import com.firstproject.mendy.myproject.model.backend.PHPContract;
 import com.firstproject.mendy.myproject.model.entities.Business;
 import com.firstproject.mendy.myproject.model.entities.TypeOfBusiness;
-import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
@@ -51,7 +49,7 @@ public class DetailBusinessActivity extends AppCompatActivity implements Adapter
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        business = (Business) getIntent().getSerializableExtra(MySqlContract.BusinessContract.BUSINESS_TABLE);
+        business = (Business) getIntent().getSerializableExtra(PHPContract.BusinessContract.BUSINESS_TABLE);
         findViewById();
         editBusiness();
     }
@@ -72,12 +70,12 @@ public class DetailBusinessActivity extends AppCompatActivity implements Adapter
         }
         emailEditText.setText(business.getEmail());
         phoneEditText.setText(business.getPhone());
-        linkEditText.setText(business.getLink().toString().substring(7));
+        linkEditText.setText(business.getLink().substring(7));
 
         final Spinner descSpinner = (Spinner) findViewById(R.id.activity_detail_business_desc_spinner);
 
 
-        ArrayAdapter adapter = new ArrayAdapter<TypeOfBusiness>(this, android.R.layout.simple_list_item_1, TypeOfBusiness.values());
+        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, TypeOfBusiness.values());
         descSpinner.setAdapter(adapter);
         descSpinner.setSelection(TypeOfBusiness.fromString(business.getType()).ordinal());
 
@@ -213,7 +211,7 @@ public class DetailBusinessActivity extends AppCompatActivity implements Adapter
 
                         intent.putExtra(IF_SAVE, true);
 
-                        //intent.putExtra(MySqlContract.BusinessContract.BUSINESS_TABLE, business);
+                        //intent.putExtra(PHPContract.BusinessContract.BUSINESS_TABLE, business);
 
                         //intent.putExtra(RecyclerBusinessAdapter.POSITION, getIntent().getIntExtra(RecyclerBusinessAdapter.POSITION, -1));
 

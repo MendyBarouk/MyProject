@@ -235,6 +235,7 @@ public class RegisterActivity extends AppCompatActivity implements FirstFragment
                         Business business = new Business(RegisterActivity.this.nameOfCompany, RegisterActivity.this.longitude,
                                 RegisterActivity.this.latitude, RegisterActivity.this.phone, RegisterActivity.this.email,
                                 RegisterActivity.this.link, RegisterActivity.this.typeOfCompany, encoded_string, logoName);
+                        business.setLogoBitmap(array);
                         dbManager.addBusiness(business);
                     }
                 } catch (Exception e) {

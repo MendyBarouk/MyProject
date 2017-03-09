@@ -5,16 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.firstproject.mendy.myproject.R;
 import com.firstproject.mendy.myproject.model.SharedPreference.SaveSharedPreference;
-import com.firstproject.mendy.myproject.model.entities.Business;
 import com.firstproject.mendy.myproject.model.entities.User;
-
-import java.util.ArrayList;
 
 public class ListBusinessActivity extends AppCompatActivity {
 
@@ -80,7 +76,6 @@ public class ListBusinessActivity extends AppCompatActivity {
                 boolean ifSave = data.getBooleanExtra(DetailBusinessActivity.IF_SAVE, false);
                 if (ifSave) {
                     try {
-                        Log.d("Mendy", "onActivityResult: " + User.getInstance().getListBusiness());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

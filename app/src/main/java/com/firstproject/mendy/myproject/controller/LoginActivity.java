@@ -8,11 +8,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.firstproject.mendy.myproject.R;
 import com.firstproject.mendy.myproject.model.SharedPreference.SaveSharedPreference;
 import com.firstproject.mendy.myproject.model.backend.DBManagerFactory;
 import com.firstproject.mendy.myproject.model.entities.User;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,35 +39,42 @@ public class LoginActivity extends AppCompatActivity {
             private void signIn(final String username, final String password) {
 
 
-                new AsyncTask<Void, Void, Boolean>() {
+                try {
+                    new AsyncTask<Void, Void, Boolean>() {
 
-                    ProgressDialog progressDialog;
+                        ProgressDialog progressDialog;
 
-                    @Override
-                    protected void onPreExecute() {
-                        progressDialog = new ProgressDialog(LoginActivity.this);
-                        progressDialog.setIndeterminate(true);
-                        progressDialog.setTitle("please wait...");
-                        progressDialog.setMessage("businesses is loading...");
-                        progressDialog.setCancelable(false);
-                        progressDialog.show();
-                    }
+                        @Override
+                        protected void onPreExecute() {
+                            progressDialog = new ProgressDialog(LoginActivity.this);
+                            progressDialog.setIndeterminate(true);
+                            progressDialog.setTitle("please wait...");
+                            progressDialog.setMessage("businesses is loading...");
+                            progressDialog.setCancelable(false);
+                            progressDialog.show();
+                        }
 
-                    @Override
-                    protected Boolean doInBackground(Void... params) {
-                        return DBManagerFactory.getManager().initUserIdentification(username, password);
-                    }
+                        @Override
+                        protected Boolean doInBackground(Void... params) {
+                            return DBManagerFactory.getManager().initUserIdentification(username, password);
+                        }
 
-                    @Override
-                    protected void onPostExecute(Boolean aBoolean) {
-                        if (aBoolean){
-                                moveToListBusinessActivity();
-                            } else {
-                                findViewById(R.id.activity_login_incorect_textView).setVisibility(View.VISIBLE);
-                            }
-                        progressDialog.dismiss();
-                    }
-                }.execute();
+                        @Override
+                        protected void onPostExecute(Boolean aBoolean) {
+                            if (aBoolean){
+                                    moveToListBusinessActivity();
+                                } else {
+                                    findViewById(R.id.activity_login_incorect_textView).setVisibility(View.VISIBLE);
+                                }
+                            progressDialog.dismiss();
+                        }
+                    }.execute().get(20000, TimeUnit.MILLISECONDS);
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                } catch (TimeoutException e) {
+                    Toast.makeText(LoginActivity.this, "Problem white server conection...", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
         });
 
